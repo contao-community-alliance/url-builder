@@ -1,7 +1,6 @@
 {
 	"name": "contao-community-alliance/url-builder",
 	"description": "General purpose URL builder and manipulator.",
-	"type": "contao-module",
 	"license": "LGPL-3.0+",
 	"authors":[
 		{
@@ -19,8 +18,7 @@
 	},
 	"require": {
 		"php":">=5.3",
-		"contao/core": ">=2.11,<3.3",
-		"contao-community-alliance/composer-plugin": "*"
+		"contao/core": ">=2.11,<4-dev"
 	},
 	"require-dev": {
 		"metamodels/php-coding-standard":"dev-master",

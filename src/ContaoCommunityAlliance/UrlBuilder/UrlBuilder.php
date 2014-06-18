@@ -142,7 +142,7 @@ class UrlBuilder
 	 */
 	public static function fromUrl($url)
 	{
-		return new self($url);
+		return new static($url);
 	}
 
 	/**

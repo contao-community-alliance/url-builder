@@ -284,12 +284,7 @@ class UrlBuilder
 	 */
 	public function setPath($path)
 	{
-		while (strpos($path, '//') !== false)
-		{
-			$path = str_replace('//', '/', $path);
-		}
-
-		$this->path = $path;
+		$this->path = preg_replace('@/{2,}@', '/', $path); // replace 2 or more slashes together
 
 		return $this;
 	}

@@ -21,7 +21,7 @@
 		"contao/core": ">=2.11,<4-dev"
 	},
 	"require-dev": {
-		"metamodels/php-coding-standard":"dev-master",
+		"metamodels/php-coding-standard":"~2.0",
 		"phpunit/phpunit": ">=3.7.10,<4-dev"
 	},
 	"conflict": {

@@ -21,8 +21,12 @@
         "contao/core": ">=2.11,<4-dev"
     },
     "require-dev": {
-        "metamodels/php-coding-standard":"~2.0",
-        "phpunit/phpunit": ">=3.7.10,<4-dev"
+        "phpunit/phpunit": "~3.7",
+        "sebastian/phpcpd": "~1.4",
+        "phploc/phploc": "~2.0",
+        "phpmd/phpmd": "~2.0",
+        "squizlabs/php_codesniffer": "~1.0",
+        "contao-community-alliance/build-system-tool-branch-alias-validation": "~1.0"
     },
     "conflict": {
         "contao/core": "3.0.*"

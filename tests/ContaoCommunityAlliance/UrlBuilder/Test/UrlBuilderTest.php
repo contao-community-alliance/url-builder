@@ -15,8 +15,16 @@ namespace ContaoCommunityAlliance\UrlBuilder\Test;
 
 use ContaoCommunityAlliance\UrlBuilder\UrlBuilder;
 
+/**
+ * Main test class for UrlBuilder class.
+ */
 class UrlBuilderTest extends TestCase
 {
+    /**
+     * Test that everything is empty on a new instance.
+     *
+     * @return void
+     */
     public function testEmpty()
     {
         $test = new UrlBuilder();
@@ -32,20 +40,30 @@ class UrlBuilderTest extends TestCase
         $this->assertEmpty($test->getUrl());
     }
 
+    /**
+     * Test that the parsing of a complete url is successful and the same URL gets regenerated.
+     *
+     * @return void
+     */
     public function testFullUrl()
     {
-        $url = 'http://user:secret@secure.c-c-a.org:80/secure/path?authenticated=1&token=123&perform#top';
+        $url  = 'http://user:secret@secure.c-c-a.org:80/secure/path?authenticated=1&token=123&perform#top';
         $test = new UrlBuilder($url);
 
         $this->assertSame($url, $test->getUrl());
     }
 
+    /**
+     * Prepare URLs for testPartialUrls test.
+     *
+     * @return array
+     */
     public function prepareUrls()
     {
         $urls = array(
             array(
-                'input' => 'http://user:secret@secure.c-c-a.org:80/secure/path?authenticated=1&token=123&perform#top',
-                'expected' => 'http://user:secret@secure.c-c-a.org:80/secure/path?authenticated=1&token=123&perform#top',
+                'input' => 'http://user:secret@secure.c-c-a.org:80/secure/path?auth=1&token=123&perform#top',
+                'expected' => 'http://user:secret@secure.c-c-a.org:80/secure/path?auth=1&token=123&perform#top',
             ),
             array(
                 'input' => 'http://secure.c-c-a.org:80/secure/path?authenticated=1&token=123&perform#top',
@@ -96,7 +114,7 @@ class UrlBuilderTest extends TestCase
     /**
      * Test partial url parsing and back combining.
      *
-     * @param string $url The url to test.
+     * @param string $url      The url to test.
      *
      * @param string $expected The expected result value.
      *
@@ -110,6 +128,11 @@ class UrlBuilderTest extends TestCase
         $this->assertSame($expected, $test->getUrl());
     }
 
+    /**
+     * Prepare URLs for testPartialBaseUrls.
+     *
+     * @return array
+     */
     public function prepareBaseUrls()
     {
         $urls = array(
@@ -164,9 +187,9 @@ class UrlBuilderTest extends TestCase
     }
 
     /**
-     * Test broken urls.
+     * Test partial urls.
      *
-     * @param string $url The url to test.
+     * @param string $url      The url to test.
      *
      * @param string $expected The expected result value.
      *
@@ -180,28 +203,33 @@ class UrlBuilderTest extends TestCase
         $this->assertSame($expected, $test->getBaseUrl());
     }
 
+    /**
+     * Prepare URLs for testBrokenUrls.
+     *
+     * @return array
+     */
     public function prepareBrokenUrls()
     {
         $urls = array(
             array(
-                'input' => 'http://user:secret@secure.c-c-a.org:80/////secure////path?authenticated=1&token=123&perform#top',
-                'expected' => 'http://user:secret@secure.c-c-a.org:80/secure/path?authenticated=1&token=123&perform#top',
+                'input' => 'http://user:secret@secure.c-c-a.org:80/////secure////path?auth=1&token=123&perform#top',
+                'expected' => 'http://user:secret@secure.c-c-a.org:80/secure/path?auth=1&token=123&perform#top',
             ),
             array(
-                'input' => 'http://user:secret@secure.c-c-a.org:80/////secure////path??authenticated=1&token=123&perform#top',
-                'expected' => 'http://user:secret@secure.c-c-a.org:80/secure/path?authenticated=1&token=123&perform#top',
+                'input' => 'http://user:secret@secure.c-c-a.org:80/////secure////path??auth=1&token=123&perform#top',
+                'expected' => 'http://user:secret@secure.c-c-a.org:80/secure/path?auth=1&token=123&perform#top',
             ),
             array(
-                'input' => 'http://user:secret@secure.c-c-a.org:80/////secure////path??=&authenticated=1&token=123&perform#top',
-                'expected' => 'http://user:secret@secure.c-c-a.org:80/secure/path?authenticated=1&token=123&perform#top',
+                'input' => 'http://user:secret@secure.c-c-a.org:80/////secure////path??=&auth=1&token=123&perform#top',
+                'expected' => 'http://user:secret@secure.c-c-a.org:80/secure/path?auth=1&token=123&perform#top',
             ),
             array(
-                'input' => 'http://user:secret@secure.c-c-a.org:80/////secure////path??=&=&authenticated=1&token=123&perform#top',
-                'expected' => 'http://user:secret@secure.c-c-a.org:80/secure/path?authenticated=1&token=123&perform#top',
+                'input' => 'http://user:secret@secure.c-c-a.org:80/////secure////path??=&=&auth=1&perform#top',
+                'expected' => 'http://user:secret@secure.c-c-a.org:80/secure/path?auth=1&perform#top',
             ),
             array(
-                'input' => 'http://user:secret@secure.c-c-a.org:80/////secure////path??=&foo=&authenticated=1&token=123&perform#top',
-                'expected' => 'http://user:secret@secure.c-c-a.org:80/secure/path?foo&authenticated=1&token=123&perform#top',
+                'input' => 'http://user:secret@secure.c-c-a.org:80/////secure////path??=&foo=&auth=1&perform#top',
+                'expected' => 'http://user:secret@secure.c-c-a.org:80/secure/path?foo&auth=1&perform#top',
             ),
         );
 
@@ -216,7 +244,7 @@ class UrlBuilderTest extends TestCase
     /**
      * Test broken urls.
      *
-     * @param string $url The url to test.
+     * @param string $url      The url to test.
      *
      * @param string $expected The expected result value.
      *

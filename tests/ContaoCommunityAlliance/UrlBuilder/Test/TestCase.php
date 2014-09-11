@@ -3,6 +3,7 @@
  * The Contao Community Alliance url-builder library allows easy generating and manipulation of urls.
  *
  * PHP version 5
+ *
  * @package    ContaoCommunityAlliance\UrlBuilder\Test
  * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
  * @copyright  The Contao Community Alliance

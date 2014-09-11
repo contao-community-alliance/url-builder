@@ -15,17 +15,24 @@ namespace ContaoCommunityAlliance\UrlBuilder\Test\Contao;
 use ContaoCommunityAlliance\UrlBuilder\Contao\BackendUrlBuilder;
 use ContaoCommunityAlliance\UrlBuilder\Test\TestCase;
 
-class BackendUrlBuilderTest
-	extends TestCase
+/**
+ * Main test class for BackendUrlBuilder class.
+ */
+class BackendUrlBuilderTest extends TestCase
 {
-	public function testAppendedRequestToken()
-	{
-		define('REQUEST_TOKEN', 'requestToken');
+    /**
+     * Test that the request token get's appended.
+     *
+     * @return void
+     */
+    public function testAppendedRequestToken()
+    {
+        define('REQUEST_TOKEN', 'requestToken');
 
-		$url      = 'http://user:secret@secure.c-c-a.org:80/secure/path?authenticated=1&token=123&perform#top';
-		$expected = 'http://user:secret@secure.c-c-a.org:80/secure/path?authenticated=1&token=123&perform&rt=requestToken#top';
-		$test     = new BackendUrlBuilder($url);
+        $url      = 'http://user:secret@secure.c-c-a.org:80/secure/path?auth=1&token=123&perform#top';
+        $expected = 'http://user:secret@secure.c-c-a.org:80/secure/path?auth=1&token=123&perform&rt=requestToken#top';
+        $test     = new BackendUrlBuilder($url);
 
-		$this->assertSame($expected, $test->getUrl());
-	}
+        $this->assertSame($expected, $test->getUrl());
+    }
 }

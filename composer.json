@@ -2,27 +2,32 @@
     "name": "contao-community-alliance/url-builder",
     "description": "General purpose URL builder and manipulator.",
     "license": "LGPL-3.0+",
-    "authors":[
+    "authors": [
         {
-            "name":"Christian Schiffler",
-            "email":"c.schiffler@cyberspectrum.de",
-            "homepage":"http://www.cyberspectrum.de",
-            "role":"Developer"
+            "name": "Christian Schiffler",
+            "email": "c.schiffler@cyberspectrum.de",
+            "homepage": "http://www.cyberspectrum.de",
+            "role": "Developer"
         }
     ],
     "support": {
-        "email":"info@contao-community-alliance.de",
-        "issues":"https://github.com/contao-community-alliance/url-builder/issues",
-        "irc":"irc://irc.freenode.org/contao.cca",
-        "source":"https://github.com/contao-community-alliance/url-builder"
+        "email": "info@contao-community-alliance.de",
+        "issues": "https://github.com/contao-community-alliance/url-builder/issues",
+        "irc": "irc://irc.freenode.org/contao.cca",
+        "source": "https://github.com/contao-community-alliance/url-builder"
     },
     "require": {
-        "php":">=5.3",
+        "php": ">=5.3",
         "contao/core": ">=2.11,<4-dev"
     },
     "require-dev": {
-        "metamodels/php-coding-standard":"~2.0",
-        "phpunit/phpunit": ">=3.7.10,<4-dev"
+        "phpunit/phpunit": "~3.7",
+        "sebastian/phpcpd": "~1.4",
+        "phploc/phploc": "~2.0",
+        "phpmd/phpmd": "~2.0",
+        "squizlabs/php_codesniffer": "~1.0",
+        "contao-community-alliance/build-system-tool-branch-alias-validation": "~1.0",
+        "contao-community-alliance/build-system": "~1.0"
     },
     "conflict": {
         "contao/core": "3.0.*"
@@ -34,7 +39,8 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.x-dev"
+            "dev-master": "1.1.x-dev",
+            "dev-develop": "1.2.x-dev"
         }
     },
     "minimum-stability": "dev"

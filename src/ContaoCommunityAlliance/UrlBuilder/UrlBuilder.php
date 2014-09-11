@@ -326,6 +326,52 @@ class UrlBuilder
     }
 
     /**
+     * Insert a query parameter at the given position.
+     *
+     * @param string $name     The name of the query parameter.
+     *
+     * @param string $value    The value of the query parameter.
+     *
+     * @param int    $position The desired position where the query parameter shall get inserted at.
+     *
+     * @return UrlBuilder
+     */
+    public function insertQueryParameter($name, $value, $position)
+    {
+        $this->query = array_merge(
+            array_slice($this->query, 0, $position),
+            array($name => $value),
+            array_slice($this->query, $position)
+        );
+
+        return $this;
+    }
+
+    /**
+     * Insert a query parameter at the given position.
+     *
+     * @param string $name   The name of the query parameter.
+     *
+     * @param string $value  The value of the query parameter.
+     *
+     * @param string $before The name of the desired parameter where the query parameter shall get inserted before.
+     *
+     * @return UrlBuilder
+     */
+    public function insertQueryParameterBefore($name, $value, $before)
+    {
+        $index = array_search($before, array_keys($this->query));
+
+        if ($index !== false) {
+            $this->insertQueryParameter($name, $value, $index);
+        } else {
+            $this->setQueryParameter($name, $value);
+        }
+
+        return $this;
+    }
+
+    /**
      * Unset a query parameter, if defined.
      *
      * @param string $name The name of the query parameter.

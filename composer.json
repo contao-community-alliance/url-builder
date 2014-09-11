@@ -2,22 +2,22 @@
     "name": "contao-community-alliance/url-builder",
     "description": "General purpose URL builder and manipulator.",
     "license": "LGPL-3.0+",
-    "authors":[
+    "authors": [
         {
-            "name":"Christian Schiffler",
-            "email":"c.schiffler@cyberspectrum.de",
-            "homepage":"http://www.cyberspectrum.de",
-            "role":"Developer"
+            "name": "Christian Schiffler",
+            "email": "c.schiffler@cyberspectrum.de",
+            "homepage": "http://www.cyberspectrum.de",
+            "role": "Developer"
         }
     ],
     "support": {
-        "email":"info@contao-community-alliance.de",
-        "issues":"https://github.com/contao-community-alliance/url-builder/issues",
-        "irc":"irc://irc.freenode.org/contao.cca",
-        "source":"https://github.com/contao-community-alliance/url-builder"
+        "email": "info@contao-community-alliance.de",
+        "issues": "https://github.com/contao-community-alliance/url-builder/issues",
+        "irc": "irc://irc.freenode.org/contao.cca",
+        "source": "https://github.com/contao-community-alliance/url-builder"
     },
     "require": {
-        "php":">=5.3",
+        "php": ">=5.3",
         "contao/core": ">=2.11,<4-dev"
     },
     "require-dev": {

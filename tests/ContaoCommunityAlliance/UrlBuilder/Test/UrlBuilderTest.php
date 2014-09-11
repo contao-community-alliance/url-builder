@@ -257,4 +257,52 @@ class UrlBuilderTest extends TestCase
         $test = new UrlBuilder($url);
         $this->assertSame($expected, $test->getUrl());
     }
+
+    /**
+     * Test that parameters are inserted at the correct position.
+     *
+     * @return void
+     */
+    public function testInsertParameter()
+    {
+        $test = new UrlBuilder('http://secure.c-c-a.org');
+        $test->insertQueryParameter('test', 'value', 0);
+        $this->assertSame('http://secure.c-c-a.org?test=value', $test->getUrl());
+
+        $test = new UrlBuilder('http://secure.c-c-a.org');
+        $test->insertQueryParameter('test', 'value', 10);
+        $this->assertSame('http://secure.c-c-a.org?test=value', $test->getUrl());
+
+        $test = new UrlBuilder('http://secure.c-c-a.org?some=parameter');
+        $test->insertQueryParameter('test', 'value', 0);
+        $this->assertSame('http://secure.c-c-a.org?test=value&some=parameter', $test->getUrl());
+
+        $test = new UrlBuilder('http://secure.c-c-a.org?some=parameter');
+        $test->insertQueryParameter('test', 'value', 1);
+        $this->assertSame('http://secure.c-c-a.org?some=parameter&test=value', $test->getUrl());
+
+        $test = new UrlBuilder('http://secure.c-c-a.org?some=parameter');
+        $test->insertQueryParameter('test', 'value', 10);
+        $this->assertSame('http://secure.c-c-a.org?some=parameter&test=value', $test->getUrl());
+    }
+
+    /**
+     * Test that parameters are inserted at the correct position.
+     *
+     * @return void
+     */
+    public function testInsertParameterBefore()
+    {
+        $test = new UrlBuilder('http://secure.c-c-a.org');
+        $test->insertQueryParameterBefore('test', 'value', 'unknown');
+        $this->assertSame('http://secure.c-c-a.org?test=value', $test->getUrl());
+
+        $test = new UrlBuilder('http://secure.c-c-a.org?some=parameter');
+        $test->insertQueryParameterBefore('test', 'value', 'some');
+        $this->assertSame('http://secure.c-c-a.org?test=value&some=parameter', $test->getUrl());
+
+        $test = new UrlBuilder('http://secure.c-c-a.org?some=parameter');
+        $test->insertQueryParameterBefore('test', 'value', 'unknown');
+        $this->assertSame('http://secure.c-c-a.org?some=parameter&test=value', $test->getUrl());
+    }
 }

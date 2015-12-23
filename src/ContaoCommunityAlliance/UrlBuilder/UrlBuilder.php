@@ -23,42 +23,42 @@ class UrlBuilder
     /**
      * The scheme.
      *
-     * @var string
+     * @var string|null
      */
     protected $scheme;
 
     /**
      * The host.
      *
-     * @var string
+     * @var string|null
      */
     protected $host;
 
     /**
      * The port.
      *
-     * @var int
+     * @var int|null
      */
     protected $port;
 
     /**
      * The username (if any).
      *
-     * @var string
+     * @var string|null
      */
     protected $user;
 
     /**
      * The password (if any).
      *
-     * @var string
+     * @var string|null
      */
     protected $pass;
 
     /**
      * The path of the url.
      *
-     * @var string
+     * @var string|null
      */
     protected $path;
 
@@ -140,7 +140,7 @@ class UrlBuilder
     /**
      * Get the user to use.
      *
-     * @return string
+     * @return string|null
      */
     public function getUser()
     {
@@ -150,7 +150,7 @@ class UrlBuilder
     /**
      * Set the user to use.
      *
-     * @param string $user The user.
+     * @param string|null $user The user.
      *
      * @return UrlBuilder
      */
@@ -164,7 +164,7 @@ class UrlBuilder
     /**
      * Retrieve the password.
      *
-     * @return string
+     * @return string|null
      */
     public function getPass()
     {
@@ -174,7 +174,7 @@ class UrlBuilder
     /**
      * Set the password.
      *
-     * @param string $pass The password.
+     * @param string|null $pass The password.
      *
      * @return UrlBuilder
      */
@@ -188,7 +188,7 @@ class UrlBuilder
     /**
      * Get the scheme.
      *
-     * @return string
+     * @return string|null
      */
     public function getScheme()
     {
@@ -198,7 +198,7 @@ class UrlBuilder
     /**
      * Set the scheme.
      *
-     * @param string $scheme The scheme.
+     * @param string|null $scheme The scheme.
      *
      * @return UrlBuilder
      */
@@ -212,7 +212,7 @@ class UrlBuilder
     /**
      * Get the hostname.
      *
-     * @return string
+     * @return string|null
      */
     public function getHost()
     {
@@ -222,7 +222,7 @@ class UrlBuilder
     /**
      * Set the hostname.
      *
-     * @param string $host The hostname.
+     * @param string|null $host The hostname.
      *
      * @return UrlBuilder
      */
@@ -236,7 +236,7 @@ class UrlBuilder
     /**
      * Retrieve the port.
      *
-     * @return int
+     * @return int|null
      */
     public function getPort()
     {
@@ -246,7 +246,7 @@ class UrlBuilder
     /**
      * Set the port.
      *
-     * @param int $port The port.
+     * @param int|null $port The port.
      *
      * @return UrlBuilder
      */
@@ -260,7 +260,7 @@ class UrlBuilder
     /**
      * Retrieve the path.
      *
-     * @return string
+     * @return string|null
      */
     public function getPath()
     {
@@ -270,7 +270,7 @@ class UrlBuilder
     /**
      * Set the path.
      *
-     * @param string $path The path.
+     * @param string|null $path The path.
      *
      * @return UrlBuilder
      */
@@ -285,7 +285,7 @@ class UrlBuilder
     /**
      * Retrieve the fragment.
      *
-     * @return string
+     * @return string|null
      */
     public function getFragment()
     {
@@ -295,7 +295,7 @@ class UrlBuilder
     /**
      * Set the fragment.
      *
-     * @param string $fragment The fragment.
+     * @param string|null $fragment The fragment.
      *
      * @return UrlBuilder
      */
@@ -444,7 +444,7 @@ class UrlBuilder
     /**
      * Retrieve the serialized query string.
      *
-     * @return string
+     * @return string|null
      */
     public function getQueryString()
     {
@@ -469,7 +469,7 @@ class UrlBuilder
      *
      * The base URL is the url without query part and fragment.
      *
-     * @return string
+     * @return string|null
      */
     public function getBaseUrl()
     {

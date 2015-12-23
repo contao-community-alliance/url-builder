@@ -319,7 +319,7 @@ class UrlBuilder
      */
     public function setQueryParameter($name, $value)
     {
-        $this->query[$name] = $value;
+        $this->query[(string) $name] = (string) $value;
 
         return $this;
     }
@@ -339,7 +339,7 @@ class UrlBuilder
     {
         $this->query = array_merge(
             array_slice($this->query, 0, $position),
-            array($name => $value),
+            array((string) $name => (string) $value),
             array_slice($this->query, $position)
         );
 
@@ -362,9 +362,9 @@ class UrlBuilder
         $index = array_search($before, array_keys($this->query));
 
         if ($index !== false) {
-            $this->insertQueryParameter($name, $value, $index);
+            $this->insertQueryParameter((string) $name, (string) $value, $index);
         } else {
-            $this->setQueryParameter($name, $value);
+            $this->setQueryParameter((string) $name, (string) $value);
         }
 
         return $this;
@@ -461,6 +461,10 @@ class UrlBuilder
             if ($value) {
                 $query .= '=' . $value;
             }
+        }
+
+        if ('' === $query) {
+            return null;
         }
 
         return $query;

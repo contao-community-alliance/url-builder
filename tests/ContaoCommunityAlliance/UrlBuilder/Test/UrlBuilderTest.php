@@ -62,50 +62,98 @@ class UrlBuilderTest extends TestCase
     {
         $urls = array(
             array(
-                'input' => 'http://user:secret@secure.c-c-a.org:80/secure/path?auth=1&token=123&perform#top',
+                'input'    => 'http://user:secret@secure.c-c-a.org:80/secure/path?auth=1&token=123&perform#top',
                 'expected' => 'http://user:secret@secure.c-c-a.org:80/secure/path?auth=1&token=123&perform#top',
+                'user'     => 'user',
+                'pass'     => 'secret',
+                'scheme'   => 'http',
+                'host'     => 'secure.c-c-a.org',
+                'port'     => 80,
+                'path'     => '/secure/path',
+                'fragment' => 'top',
+                'query'    => 'auth=1&token=123&perform',
             ),
             array(
                 'input' => 'http://secure.c-c-a.org:80/secure/path?authenticated=1&token=123&perform#top',
                 'expected' => 'http://secure.c-c-a.org:80/secure/path?authenticated=1&token=123&perform#top',
+                'scheme'   => 'http',
+                'host'     => 'secure.c-c-a.org',
+                'port'     => 80,
+                'path'     => '/secure/path',
+                'fragment' => 'top',
+                'query'    => 'authenticated=1&token=123&perform',
             ),
             array(
                 'input' => 'http://secure.c-c-a.org/secure/path?authenticated=1&token=123&perform#top',
                 'expected' => 'http://secure.c-c-a.org/secure/path?authenticated=1&token=123&perform#top',
+                'scheme'   => 'http',
+                'host'     => 'secure.c-c-a.org',
+                'path'     => '/secure/path',
+                'fragment' => 'top',
+                'query'    => 'authenticated=1&token=123&perform',
             ),
             array(
                 'input' => 'http://secure.c-c-a.org/secure/path?authenticated=1&token=123&perform',
                 'expected' => 'http://secure.c-c-a.org/secure/path?authenticated=1&token=123&perform',
+                'scheme'   => 'http',
+                'host'     => 'secure.c-c-a.org',
+                'path'     => '/secure/path',
+                'query'    => 'authenticated=1&token=123&perform',
             ),
             array(
-                'input' => 'secure.c-c-a.org/secure/path?authenticated=1&token=123&perform',
-                'expected' => 'secure.c-c-a.org/secure/path?authenticated=1&token=123&perform',
+                'input' => '//secure.c-c-a.org/secure/path?authenticated=1&token=123&perform',
+                'expected' => '//secure.c-c-a.org/secure/path?authenticated=1&token=123&perform',
+                'scheme'   => '',
+                'host'     => 'secure.c-c-a.org',
+                'path'     => '/secure/path',
+                'query'    => 'authenticated=1&token=123&perform',
             ),
             array(
                 'input' => '?authenticated=1&token=123&perform',
                 'expected' => 'authenticated=1&token=123&perform',
+                'query'    => 'authenticated=1&token=123&perform',
             ),
             array(
                 'input' => 'authenticated=1&token=123&perform',
                 'expected' => 'authenticated=1&token=123&perform',
+                'query'    => 'authenticated=1&token=123&perform',
             ),
             array(
                 'input' => 'http://secure.c-c-a.org/secure/path',
                 'expected' => 'http://secure.c-c-a.org/secure/path',
+                'scheme'   => 'http',
+                'host'     => 'secure.c-c-a.org',
+                'path'     => '/secure/path',
             ),
             array(
                 'input' => 'http://secure.c-c-a.org/',
                 'expected' => 'http://secure.c-c-a.org/',
+                'scheme'   => 'http',
+                'host'     => 'secure.c-c-a.org',
+                'path'     => '/',
             ),
             array(
                 'input' => 'http://secure.c-c-a.org',
                 'expected' => 'http://secure.c-c-a.org',
+                'scheme'   => 'http',
+                'host'     => 'secure.c-c-a.org',
             ),
         );
 
         return array_map(
             function ($url) {
-                return array($url['input'], $url['expected']);
+                return array(
+                    $url['input'],
+                    $url['expected'],
+                    isset($url['user'])     ? $url['user']     : null,
+                    isset($url['pass'])     ? $url['pass']     : null,
+                    isset($url['scheme'])   ? $url['scheme']   : null,
+                    isset($url['host'])     ? $url['host']     : null,
+                    isset($url['port'])     ? $url['port']     : null,
+                    isset($url['path'])     ? $url['path']     : null,
+                    isset($url['fragment']) ? $url['fragment'] : null,
+                    isset($url['query'])    ? $url['query']    : null,
+                );
             },
             $urls
         );
@@ -118,14 +166,38 @@ class UrlBuilderTest extends TestCase
      *
      * @param string $expected The expected result value.
      *
+     * @param string $user     The user part of the url.
+     *
+     * @param string $pass     The pass part of the url.
+     *
+     * @param string $scheme   The scheme part of the url.
+     *
+     * @param string $host     The host part of the url.
+     *
+     * @param string $port     The port part of the url.
+     *
+     * @param string $path     The path part of the url.
+     *
+     * @param string $fragment The fragment part of the url.
+     *
+     * @param string $query    The query part of the url.
+     *
      * @return void
      *
      * @dataProvider prepareUrls
      */
-    public function testPartialUrls($url, $expected)
+    public function testPartialUrls($url, $expected, $user, $pass, $scheme, $host, $port, $path, $fragment, $query)
     {
         $test = new UrlBuilder($url);
-        $this->assertSame($expected, $test->getUrl());
+        $this->assertSame($expected, $test->getUrl(), 'Check failed: expected');
+        $this->assertSame($user, $test->getUser(), 'Check failed: user');
+        $this->assertSame($pass, $test->getPass(), 'Check failed: pass');
+        $this->assertSame($scheme, $test->getScheme(), 'Check failed: scheme');
+        $this->assertSame($host, $test->getHost(), 'Check failed: host');
+        $this->assertSame($port, $test->getPort(), 'Check failed: port');
+        $this->assertSame($path, $test->getPath(), 'Check failed: path');
+        $this->assertSame($fragment, $test->getFragment(), 'Check failed: fragment');
+        $this->assertSame($query, $test->getQueryString(), 'Check failed: query');
     }
 
     /**

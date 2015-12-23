@@ -94,6 +94,8 @@ class UrlBuilder
 
         if (isset($parsed['scheme'])) {
             $this->setScheme($parsed['scheme']);
+        } elseif ('//' === substr($url, 0, 2)) {
+            $this->setScheme('');
         }
 
         if (isset($parsed['host'])) {
@@ -475,7 +477,10 @@ class UrlBuilder
     {
         $url = '';
         if (isset($this->scheme)) {
-            $url .= $this->scheme . '://';
+            if ('' !== $this->scheme) {
+                $url .= $this->scheme . ':';
+            }
+            $url .= '//';
         }
 
         if (isset($this->user)) {

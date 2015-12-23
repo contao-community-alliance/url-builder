@@ -86,7 +86,10 @@ class UrlBuilder
         $parsed = parse_url($url);
 
         // If only one field present it is the path which must be mapped to the query string.
-        if ((count($parsed) === 1) && isset($parsed['path'])) {
+        if ((count($parsed) === 1)
+            && isset($parsed['path'])
+            && (0 === strpos($parsed['path'], '?') || false !== strpos($parsed['path'], '&'))
+        ) {
             $parsed = array(
                 'query' => $parsed['path']
             );

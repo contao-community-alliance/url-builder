@@ -33,6 +33,11 @@
             "ContaoCommunityAlliance\\UrlBuilder\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-0": {
+            "ContaoCommunityAlliance\\UrlBuilder\\Test\\": "tests/"
+        }
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "1.1.x-dev",

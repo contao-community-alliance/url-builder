@@ -1,13 +1,20 @@
 <?php
+
 /**
- * The Contao Community Alliance url-builder library allows easy generating and manipulation of urls.
+ * This file is part of contao-community-alliance/url-builder.
  *
- * PHP version 5
+ * (c) 2016 Contao Community Alliance.
  *
- * @package    ContaoCommunityAlliance\UrlBuilder
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * This project is provided in good faith and hope to be usable by anyone.
+ *
+ * @package    contao-community-alliance/dc-general-contao-frontend
  * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
- * @copyright  The Contao Community Alliance
- * @license    LGPL.
+ * @author     Bocharsky Victor <bocharsky.bw@gmail.com>
+ * @copyright  2014-2016 Contao Community Alliance.
+ * @license    https://github.com/contao-community-alliance/url-builder/blob/master/LICENSE LGPL-3.0
  * @filesource
  */
 
@@ -80,20 +87,14 @@ class UrlBuilder
      * Create a new instance.
      *
      * @param string $url The url to start with.
+     *
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function __construct($url = '')
     {
-        $parsed = parse_url($url);
-
         // If only one field present it is the path which must be mapped to the query string.
-        if ((count($parsed) === 1)
-            && isset($parsed['path'])
-            && (0 === strpos($parsed['path'], '?') || false !== strpos($parsed['path'], '&'))
-        ) {
-            $parsed = array(
-                'query' => $parsed['path']
-            );
-        }
+        $parsed = $this->parseUrl($url);
 
         if (isset($parsed['scheme'])) {
             $this->setScheme($parsed['scheme']);
@@ -500,12 +501,10 @@ class UrlBuilder
             $url .= '@';
         }
 
-        if (isset($this->host)) {
-            $url .= $this->host;
+        $url .= $this->host;
 
-            if (isset($this->port)) {
-                $url .= ':' . $this->port;
-            }
+        if (isset($this->port)) {
+            $url .= ':' . $this->port;
         }
 
         if (isset($this->path)) {
@@ -541,5 +540,30 @@ class UrlBuilder
         }
 
         return $url;
+    }
+
+    /**
+     * Parse the URL and fix up if it only contains only one element to make it the query element.
+     *
+     * @param string $url The url to parse.
+     *
+     * @return array
+     */
+    private function parseUrl($url)
+    {
+        $parsed = parse_url($url);
+
+        if ((count($parsed) === 1)
+            && isset($parsed['path'])
+            && (0 === strpos($parsed['path'], '?') || false !== strpos($parsed['path'], '&'))
+        ) {
+            $parsed = array(
+                'query' => $parsed['path']
+            );
+
+            return $parsed;
+        }
+
+        return $parsed;
     }
 }

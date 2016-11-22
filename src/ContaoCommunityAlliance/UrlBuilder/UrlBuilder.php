@@ -401,6 +401,18 @@ class UrlBuilder
     }
 
     /**
+     * Retrieve the value of a query parameter.
+     *
+     * @param string $name The name of the query parameter.
+     *
+     * @return string|null
+     */
+    public function getQueryParameter($name)
+    {
+        return isset($this->query[$name]) ? $this->query[$name] : null;
+    }
+
+    /**
      * Absorb the query parameters from a query string.
      *
      * @param string $queryString The query string.

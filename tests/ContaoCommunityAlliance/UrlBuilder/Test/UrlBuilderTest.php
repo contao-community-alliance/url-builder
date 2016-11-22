@@ -414,6 +414,9 @@ class UrlBuilderTest extends TestCase
         $this->assertTrue($test->hasQueryParameter('initial'));
         $this->assertTrue($test->hasQueryParameter('test'));
         $this->assertTrue($test->hasQueryParameter('foo'));
+        $this->assertSame('value', $test->getQueryParameter('initial'));
+        $this->assertSame('value', $test->getQueryParameter('test'));
+        $this->assertSame('bar', $test->getQueryParameter('foo'));
         $this->assertSame('http://secure.c-c-a.org?initial=value&test=value&foo=bar', $test->getUrl());
     }
 

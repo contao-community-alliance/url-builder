@@ -453,8 +453,7 @@ class UrlBuilder
      */
     public function addQueryParametersFromUrl($url)
     {
-        $queryString = parse_url($url, PHP_URL_QUERY);
-        $this->addQueryParameters($queryString);
+        $this->addQueryParameters(static::fromUrl($url)->getQueryString());
 
         return $this;
     }

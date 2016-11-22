@@ -538,12 +538,12 @@ class UrlBuilder
     {
         $url = $this->getBaseUrl();
 
-        if (count($this->query)) {
+        if ($query = $this->getQueryString()) {
             if ($url) {
                 $url .= '?';
             }
 
-            $url .= $this->getQueryString();
+            $url .= $query;
         }
 
         if (isset($this->fragment)) {

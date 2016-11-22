@@ -188,7 +188,7 @@ class UrlBuilderTest extends TestCase
      */
     public function testPartialUrls($url, $expected, $user, $pass, $scheme, $host, $port, $path, $fragment, $query)
     {
-        $test = new UrlBuilder($url);
+        $test = UrlBuilder::fromUrl($url);
         $this->assertSame($expected, $test->getUrl(), 'Check failed: expected');
         $this->assertSame($user, $test->getUser(), 'Check failed: user');
         $this->assertSame($pass, $test->getPass(), 'Check failed: pass');
@@ -271,7 +271,7 @@ class UrlBuilderTest extends TestCase
      */
     public function testPartialBaseUrls($url, $expected)
     {
-        $test = new UrlBuilder($url);
+        $test = UrlBuilder::fromUrl($url);
         $this->assertSame($expected, $test->getBaseUrl());
     }
 
@@ -326,7 +326,7 @@ class UrlBuilderTest extends TestCase
      */
     public function testBrokenUrls($url, $expected)
     {
-        $test = new UrlBuilder($url);
+        $test = UrlBuilder::fromUrl($url);
         $this->assertSame($expected, $test->getUrl());
     }
 
@@ -376,5 +376,65 @@ class UrlBuilderTest extends TestCase
         $test = new UrlBuilder('http://secure.c-c-a.org?some=parameter');
         $test->insertQueryParameterBefore('test', 'value', 'unknown');
         $this->assertSame('http://secure.c-c-a.org?some=parameter&test=value', $test->getUrl());
+    }
+
+    /**
+     * Test that parameters are removed correctly.
+     *
+     * @return void
+     */
+    public function testHasQueryParameter()
+    {
+        $test = new UrlBuilder('http://secure.c-c-a.org?test=value');
+        $this->assertTrue($test->hasQueryParameter('test'));
+    }
+
+    /**
+     * Test that parameters are removed correctly.
+     *
+     * @return void
+     */
+    public function testUnsetQueryParameter()
+    {
+        $test = new UrlBuilder('http://secure.c-c-a.org?test=value');
+        $test->unsetQueryParameter('test');
+        $this->assertFalse($test->hasQueryParameter('test'));
+        $this->assertSame('http://secure.c-c-a.org', $test->getUrl());
+    }
+
+    /**
+     * Test that parameters are removed correctly.
+     *
+     * @return void
+     */
+    public function testAddQueryParametersFromUrl()
+    {
+        $test = new UrlBuilder('http://secure.c-c-a.org?initial=value&test=nonsense');
+        $test->addQueryParametersFromUrl('http://secure.example.org?test=value&foo=bar');
+        $this->assertTrue($test->hasQueryParameter('initial'));
+        $this->assertTrue($test->hasQueryParameter('test'));
+        $this->assertTrue($test->hasQueryParameter('foo'));
+        $this->assertSame('http://secure.c-c-a.org?initial=value&test=value&foo=bar', $test->getUrl());
+    }
+
+    /**
+     * Test that creating an URL from scratch works.
+     *
+     * @return void
+     */
+    public function testCreationFromEmpty()
+    {
+        $test = new UrlBuilder();
+
+        $test
+            ->setScheme('spdy')
+            ->setUser('test')
+            ->setPass('secret')
+            ->setHost('example.org')
+            ->setPort(50)
+            ->setPath('directory/file')
+            ->setQueryParameter('test', 'value');
+
+        $this->assertSame('spdy://test:secret@example.org:50/directory/file?test=value', $test->getUrl());
     }
 }

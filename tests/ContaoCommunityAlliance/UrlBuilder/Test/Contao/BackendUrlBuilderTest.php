@@ -1,12 +1,19 @@
 <?php
+
 /**
- * The Contao Community Alliance url-builder library allows easy generating and manipulation of urls.
+ * This file is part of contao-community-alliance/url-builder.
  *
- * PHP version 5
- * @package    ContaoCommunityAlliance\UrlBuilder\Test
+ * (c) 2016 Contao Community Alliance.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * This project is provided in good faith and hope to be usable by anyone.
+ *
+ * @package    contao-community-alliance/url-builder
  * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
- * @copyright  The Contao Community Alliance
- * @license    LGPL.
+ * @copyright  2014-2016 Contao Community Alliance.
+ * @license    https://github.com/contao-community-alliance/url-builder/blob/master/LICENSE LGPL-3.0
  * @filesource
  */
 
@@ -21,9 +28,26 @@ use ContaoCommunityAlliance\UrlBuilder\Test\TestCase;
 class BackendUrlBuilderTest extends TestCase
 {
     /**
+     * Test that an exception is thrown when the constant is not defined.
+     *
+     * @return void
+     *
+     * @runInSeparateProcess
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage Request token not defined
+     */
+    public function testThrowsExceptionWithoutConstant()
+    {
+        $test = new BackendUrlBuilder('http://secure.c-c-a.org');
+        $test->getUrl();
+    }
+
+    /**
      * Test that the request token get's appended.
      *
      * @return void
+     *
+     * @runInSeparateProcess
      */
     public function testAppendedRequestToken()
     {
@@ -31,6 +55,24 @@ class BackendUrlBuilderTest extends TestCase
 
         $url      = 'http://user:secret@secure.c-c-a.org:80/secure/path?auth=1&token=123&perform#top';
         $expected = 'http://user:secret@secure.c-c-a.org:80/secure/path?auth=1&token=123&perform&rt=requestToken#top';
+        $test     = new BackendUrlBuilder($url);
+
+        $this->assertSame($expected, $test->getUrl());
+    }
+
+    /**
+     * Test that the request token get's appended.
+     *
+     * @return void
+     *
+     * @runInSeparateProcess
+     */
+    public function testAppendedRequestTokenAsOnlyParameter()
+    {
+        define('REQUEST_TOKEN', 'requestToken');
+
+        $url      = 'http://user:secret@secure.c-c-a.org:80/secure/path#top';
+        $expected = 'http://user:secret@secure.c-c-a.org:80/secure/path?rt=requestToken#top';
         $test     = new BackendUrlBuilder($url);
 
         $this->assertSame($expected, $test->getUrl());

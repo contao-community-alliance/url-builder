@@ -1,13 +1,19 @@
 <?php
+
 /**
- * The Contao Community Alliance url-builder library allows easy generating and manipulation of urls.
+ * This file is part of contao-community-alliance/url-builder.
  *
- * PHP version 5
+ * (c) 2016 Contao Community Alliance.
  *
- * @package    ContaoCommunityAlliance\UrlBuilder
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * This project is provided in good faith and hope to be usable by anyone.
+ *
+ * @package    contao-community-alliance/url-builder
  * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
- * @copyright  The Contao Community Alliance
- * @license    LGPL.
+ * @copyright  2014-2016 Contao Community Alliance.
+ * @license    https://github.com/contao-community-alliance/url-builder/blob/master/LICENSE LGPL-3.0
  * @filesource
  */
 

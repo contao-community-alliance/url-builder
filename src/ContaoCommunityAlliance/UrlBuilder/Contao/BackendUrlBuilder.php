@@ -10,7 +10,7 @@
  *
  * This project is provided in good faith and hope to be usable by anyone.
  *
- * @package    contao-community-alliance/dc-general-contao-frontend
+ * @package    contao-community-alliance/url-builder
  * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
  * @copyright  2014-2016 Contao Community Alliance.
  * @license    https://github.com/contao-community-alliance/url-builder/blob/master/LICENSE LGPL-3.0

@@ -25,7 +25,10 @@ use ContaoCommunityAlliance\UrlBuilder\UrlBuilder;
 /**
  * URL builder for the Contao Backend.
  *
- * @package ContaoCommunityAlliance\UrlBuilder\Contao
+ * @package    ContaoCommunityAlliance\UrlBuilder\Contao
+ *
+ * @deprecated The backend url builder is deprecated since 1.3 and removed in 2.0.
+ *             Use instead csrf url builder.
  */
 class BackendUrlBuilder extends UrlBuilder
 {

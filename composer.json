@@ -1,7 +1,7 @@
 {
     "name": "contao-community-alliance/url-builder",
     "description": "General purpose URL builder and manipulator.",
-    "license": "LGPL-3.0+",
+    "license": "LGPL-3.0-or-later",
     "authors": [
         {
             "name": "Christian Schiffler",
@@ -22,10 +22,10 @@
         "source": "https://github.com/contao-community-alliance/url-builder"
     },
     "require": {
-        "php": ">=5.6"
+        "php": "^5.6 || ^7.0"
     },
     "require-dev": {
-        "phpcq/all-tasks": "~1.1",
+        "phpcq/all-tasks": "~1.2",
         "contao/core-bundle": "~4.4"
     },
     "autoload": {

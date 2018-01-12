@@ -541,6 +541,9 @@ class UrlBuilder
 
         if ($query = $this->getQueryString()) {
             if ($url) {
+                if (!$this->path) {
+                    $url .= '/';
+                }
                 $url .= '?';
             }
 

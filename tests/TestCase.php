@@ -23,7 +23,7 @@ namespace ContaoCommunityAlliance\UrlBuilder\Test;
 /**
  * Abstract base class for test cases of the library.
  */
-abstract class TestCase extends \PHPUnit_Framework_TestCase
+abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
 
 }

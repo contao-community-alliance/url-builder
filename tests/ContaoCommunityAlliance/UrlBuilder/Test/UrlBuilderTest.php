@@ -345,23 +345,23 @@ class UrlBuilderTest extends TestCase
     {
         $test = new UrlBuilder('http://secure.c-c-a.org');
         $test->insertQueryParameter('test', 'value', 0);
-        $this->assertSame('http://secure.c-c-a.org?test=value', $test->getUrl());
+        $this->assertSame('http://secure.c-c-a.org/?test=value', $test->getUrl());
 
         $test = new UrlBuilder('http://secure.c-c-a.org');
         $test->insertQueryParameter('test', 'value', 10);
-        $this->assertSame('http://secure.c-c-a.org?test=value', $test->getUrl());
+        $this->assertSame('http://secure.c-c-a.org/?test=value', $test->getUrl());
 
-        $test = new UrlBuilder('http://secure.c-c-a.org?some=parameter');
+        $test = new UrlBuilder('http://secure.c-c-a.org/?some=parameter');
         $test->insertQueryParameter('test', 'value', 0);
-        $this->assertSame('http://secure.c-c-a.org?test=value&some=parameter', $test->getUrl());
+        $this->assertSame('http://secure.c-c-a.org/?test=value&some=parameter', $test->getUrl());
 
-        $test = new UrlBuilder('http://secure.c-c-a.org?some=parameter');
+        $test = new UrlBuilder('http://secure.c-c-a.org/?some=parameter');
         $test->insertQueryParameter('test', 'value', 1);
-        $this->assertSame('http://secure.c-c-a.org?some=parameter&test=value', $test->getUrl());
+        $this->assertSame('http://secure.c-c-a.org/?some=parameter&test=value', $test->getUrl());
 
-        $test = new UrlBuilder('http://secure.c-c-a.org?some=parameter');
+        $test = new UrlBuilder('http://secure.c-c-a.org/?some=parameter');
         $test->insertQueryParameter('test', 'value', 10);
-        $this->assertSame('http://secure.c-c-a.org?some=parameter&test=value', $test->getUrl());
+        $this->assertSame('http://secure.c-c-a.org/?some=parameter&test=value', $test->getUrl());
     }
 
     /**
@@ -373,15 +373,54 @@ class UrlBuilderTest extends TestCase
     {
         $test = new UrlBuilder('http://secure.c-c-a.org');
         $test->insertQueryParameterBefore('test', 'value', 'unknown');
-        $this->assertSame('http://secure.c-c-a.org?test=value', $test->getUrl());
+        $this->assertSame('http://secure.c-c-a.org/?test=value', $test->getUrl());
 
-        $test = new UrlBuilder('http://secure.c-c-a.org?some=parameter');
+        $test = new UrlBuilder('http://secure.c-c-a.org/?some=parameter');
         $test->insertQueryParameterBefore('test', 'value', 'some');
-        $this->assertSame('http://secure.c-c-a.org?test=value&some=parameter', $test->getUrl());
+        $this->assertSame('http://secure.c-c-a.org/?test=value&some=parameter', $test->getUrl());
 
-        $test = new UrlBuilder('http://secure.c-c-a.org?some=parameter');
+        $test = new UrlBuilder('http://secure.c-c-a.org/?some=parameter');
         $test->insertQueryParameterBefore('test', 'value', 'unknown');
-        $this->assertSame('http://secure.c-c-a.org?some=parameter&test=value', $test->getUrl());
+        $this->assertSame('http://secure.c-c-a.org/?some=parameter&test=value', $test->getUrl());
+    }
+
+    /**
+     * Prepare test data for testQueryParameterCorrectlySeparated().
+     *
+     * @return array
+     */
+    public function prepareQueryParameterTestUrls()
+    {
+        return array(
+            array(
+                'expected' => 'http://secure.c-c-a.org/foo?foo=bar',
+                'baseUrl'  => 'http://secure.c-c-a.org/foo',
+            ),
+            array(
+                'expected' => 'http://secure.c-c-a.org/foo.html?foo=bar',
+                'baseUrl'  => 'http://secure.c-c-a.org/foo.html',
+            ),
+            array(
+                'expected' => 'http://secure.c-c-a.org/?foo=bar',
+                'baseUrl'  => 'http://secure.c-c-a.org',
+            )
+        );
+    }
+
+    /**
+     * Test that having a query with a bare base url works.
+     *
+     * @param string $expected The expected result.
+     * @param string $baseUrl  The base URL.
+     *
+     * @dataProvider prepareQueryParameterTestUrls
+     */
+    public function testQueryParameterCorrectlySeparated($expected, $baseUrl)
+    {
+        $url = new UrlBuilder($baseUrl);
+        $url->setQueryParameter('foo', 'bar');
+
+        $this->assertSame($expected, $url->getUrl());
     }
 
     /**
@@ -423,7 +462,7 @@ class UrlBuilderTest extends TestCase
         $this->assertSame('value', $test->getQueryParameter('initial'));
         $this->assertSame('value', $test->getQueryParameter('test'));
         $this->assertSame('bar', $test->getQueryParameter('foo'));
-        $this->assertSame('http://secure.c-c-a.org?initial=value&test=value&foo=bar', $test->getUrl());
+        $this->assertSame('http://secure.c-c-a.org/?initial=value&test=value&foo=bar', $test->getUrl());
     }
 
     /**

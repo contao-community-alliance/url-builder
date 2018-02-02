@@ -21,7 +21,7 @@
 namespace ContaoCommunityAlliance\UrlBuilder\Contao;
 
 use ContaoCommunityAlliance\UrlBuilder\UrlBuilder;
-use Symfony\Component\DependencyInjection\ResettableContainerInterface;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 /**
  * URL builder with security token.
@@ -31,24 +31,32 @@ use Symfony\Component\DependencyInjection\ResettableContainerInterface;
 class CsrfUrlBuilder extends UrlBuilder
 {
     /**
-     * The service container.
+     * The token manager.
      *
-     * @var ResettableContainerInterface
+     * @var CsrfTokenManagerInterface
      */
-    protected $container;
+    private $tokenManager;
+
+    /**
+     * The token name.
+     *
+     * @var string
+     */
+    private $tokenName;
 
     /**
      * CsrfUrlBuilder constructor.
      *
-     * @param ResettableContainerInterface $container The service container.
-     *
-     * @param string                       $url       The url.
+     * @param CsrfTokenManagerInterface $tokenManager The token manager.
+     * @param string                    $tokenName    The token name.
+     * @param string                    $url          The url.
      */
-    public function __construct(ResettableContainerInterface $container, $url = '')
+    public function __construct(CsrfTokenManagerInterface $tokenManager, $tokenName, $url = '')
     {
         parent::__construct($url);
 
-        $this->container = $container;
+        $this->tokenManager = $tokenManager;
+        $this->tokenName    = $tokenName;
     }
 
     /**
@@ -63,12 +71,7 @@ class CsrfUrlBuilder extends UrlBuilder
             $query .= '&';
         }
 
-        $requestToken = $this->container
-            ->get('security.csrf.token_manager')
-            ->getToken($this->container->getParameter('contao.csrf_token_name'))
-            ->getValue();
-
-        $query .= 'rt=' . $requestToken;
+        $query .= 'rt=' . $this->tokenManager->getToken($this->tokenName)->getValue();
 
         return $query;
     }

@@ -13,7 +13,7 @@
 		>
 	<testsuites>
 		<testsuite name="URL Builder tests">
-			<directory>./tests/ContaoCommunityAlliance/</directory>
+			<directory>./tests/</directory>
 		</testsuite>
 	</testsuites>
 

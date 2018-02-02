@@ -3,7 +3,7 @@
 /**
  * This file is part of contao-community-alliance/url-builder.
  *
- * (c) 2016 Contao Community Alliance.
+ * (c) 2017 Contao Community Alliance.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,7 +12,8 @@
  *
  * @package    contao-community-alliance/url-builder
  * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
- * @copyright  2014-2016 Contao Community Alliance.
+ * @author     Sven Baumann <baumann.sv@gmail.com>
+ * @copyright  2014-2017 Contao Community Alliance.
  * @license    https://github.com/contao-community-alliance/url-builder/blob/master/LICENSE LGPL-3.0
  * @filesource
  */
@@ -25,6 +26,9 @@ use ContaoCommunityAlliance\UrlBuilder\UrlBuilder;
  * URL builder for the Contao Backend.
  *
  * @package ContaoCommunityAlliance\UrlBuilder\Contao
+ *
+ * @deprecated The backend url builder is deprecated since 1.3 and removed in 2.0.
+ *             Use instead csrf url builder.
  */
 class BackendUrlBuilder extends UrlBuilder
 {

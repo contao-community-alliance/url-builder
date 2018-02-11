@@ -26,7 +26,8 @@
     },
     "require-dev": {
         "phpcq/all-tasks": "^1.2",
-        "contao/core-bundle": "4.4"
+        "contao/core-bundle": "^4.4",
+		"php-http/guzzle6-adapter": "^1.1"
     },
     "autoload": {
         "psr-4": {

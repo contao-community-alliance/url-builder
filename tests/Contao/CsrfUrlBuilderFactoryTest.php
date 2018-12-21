@@ -12,6 +12,7 @@
  *
  * @package    contao-community-alliance/url-builder
  * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
+ * @author     Sven Baumann <baumann.sv@gmail.com>
  * @copyright  2014-2018 Contao Community Alliance.
  * @license    https://github.com/contao-community-alliance/url-builder/blob/master/LICENSE LGPL-3.0
  * @filesource

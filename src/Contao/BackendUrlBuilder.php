@@ -21,6 +21,7 @@
 namespace ContaoCommunityAlliance\UrlBuilder\Contao;
 
 use ContaoCommunityAlliance\UrlBuilder\UrlBuilder;
+use RuntimeException;
 
 /**
  * URL builder for the Contao Backend.
@@ -37,20 +38,21 @@ class BackendUrlBuilder extends UrlBuilder
      *
      * @return string
      *
-     * @throws \RuntimeException If no REQUEST_TOKEN constant exists.
+     * @throws RuntimeException If no REQUEST_TOKEN constant exists.
      */
     public function getQueryString()
     {
-        $query = parent::getQueryString();
-        if ($query) {
+        $query = (string) parent::getQueryString();
+        if (!empty($query)) {
             $query .= '&';
         }
 
         if (!defined('REQUEST_TOKEN')) {
-            throw new \RuntimeException('Request token not defined - can not append to query string.');
+            throw new RuntimeException('Request token not defined - can not append to query string.');
         }
+        $token = (string) REQUEST_TOKEN;
 
-        $query .= 'rt=' . REQUEST_TOKEN;
+        $query .= 'rt=' . $token;
 
         return $query;
     }

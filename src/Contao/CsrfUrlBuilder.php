@@ -66,8 +66,8 @@ class CsrfUrlBuilder extends UrlBuilder
      */
     public function getQueryString()
     {
-        $query = parent::getQueryString();
-        if ($query) {
+        $query = (string) parent::getQueryString();
+        if (!empty($query)) {
             $query .= '&';
         }
 

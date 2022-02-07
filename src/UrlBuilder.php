@@ -25,6 +25,8 @@ namespace ContaoCommunityAlliance\UrlBuilder;
  * General purpose URL builder class.
  *
  * @package ContaoCommunityAlliance\UrlBuilder
+ *
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
 class UrlBuilder
 {
@@ -80,9 +82,18 @@ class UrlBuilder
     /**
      * The part after the hash.
      *
-     * @var string
+     * @var string|null
      */
     protected $fragment;
+
+    /**
+     * Flag to determine if the query string is to be prefixed with a question mark.
+     *
+     * See issue #3
+     *
+     * @var bool
+     */
+    private $queryWasPrefixed = false;
 
     /**
      * Create a new instance.
@@ -141,7 +152,7 @@ class UrlBuilder
      */
     public static function fromUrl($url)
     {
-        return new static($url);
+        return new self($url);
     }
 
     /**
@@ -283,6 +294,11 @@ class UrlBuilder
      */
     public function setPath($path)
     {
+        if (null === $path) {
+            $this->path = null;
+
+            return $this;
+        }
         // Replace 2 or more slashes together.
         $this->path = preg_replace('@/{2,}@', '/', $path);
 
@@ -324,7 +340,7 @@ class UrlBuilder
      */
     public function setQueryParameter($name, $value)
     {
-        $this->query[(string) $name] = (string) $value;
+        $this->query[$name] = $value;
 
         return $this;
     }
@@ -344,7 +360,7 @@ class UrlBuilder
     {
         $this->query = array_merge(
             array_slice($this->query, 0, $position),
-            array((string) $name => (string) $value),
+            [$name => $value],
             array_slice($this->query, $position)
         );
 
@@ -367,9 +383,9 @@ class UrlBuilder
         $index = array_search($before, array_keys($this->query));
 
         if ($index !== false) {
-            $this->insertQueryParameter((string) $name, (string) $value, $index);
+            $this->insertQueryParameter($name, $value, $index);
         } else {
-            $this->setQueryParameter((string) $name, (string) $value);
+            $this->setQueryParameter($name, $value);
         }
 
         return $this;
@@ -454,7 +470,9 @@ class UrlBuilder
      */
     public function addQueryParametersFromUrl($url)
     {
-        $this->addQueryParameters(static::fromUrl($url)->getQueryString());
+        if (null !== ($parameters = static::fromUrl($url)->getQueryString())) {
+            $this->addQueryParameters($parameters);
+        }
 
         return $this;
     }
@@ -491,7 +509,9 @@ class UrlBuilder
      *
      * The base URL is the url without query part and fragment.
      *
-     * @return string|null
+     * @return string
+     *
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     public function getBaseUrl()
     {
@@ -513,7 +533,9 @@ class UrlBuilder
             $url .= '@';
         }
 
-        $url .= $this->host;
+        if (isset($this->host)) {
+            $url .= $this->host;
+        }
 
         if (isset($this->port)) {
             $url .= ':' . $this->port;
@@ -545,6 +567,8 @@ class UrlBuilder
                     $url .= '/';
                 }
                 $url .= '?';
+            } elseif ($this->queryWasPrefixed) {
+                $url .= '?';
             }
 
             $url .= $query;
@@ -562,22 +586,41 @@ class UrlBuilder
      *
      * @param string $url The url to parse.
      *
-     * @return array
+     * @return array{
+     *   fragment?: string,
+     *   host?: string,
+     *   pass?: string,
+     *   path?: string,
+     *   port?: int,
+     *   query?: string,
+     *   scheme?: string,
+     *   user?: string
+     * }
      */
     private function parseUrl($url)
     {
         $parsed = parse_url($url);
+        if (!is_array($parsed)) {
+            return [];
+        }
 
-        if ((count($parsed) === 1)
-            && isset($parsed['path'])
-            && (0 === strpos($parsed['path'], '?') || false !== strpos($parsed['path'], '&'))
+        if (count($parsed) !== 1) {
+            $this->queryWasPrefixed = false;
+            return $parsed;
+        }
+        if (
+            isset($parsed['path'])
+            && (($queryWasPrefixed = (0 === strpos($parsed['path'], '?'))) || false !== strpos($parsed['path'], '&'))
         ) {
             $parsed = array(
                 'query' => $parsed['path']
             );
 
+            $this->queryWasPrefixed = $queryWasPrefixed;
+
             return $parsed;
         }
+        $this->queryWasPrefixed = isset($parsed['query']);
 
         return $parsed;
     }

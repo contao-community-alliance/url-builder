@@ -24,6 +24,8 @@ use ContaoCommunityAlliance\UrlBuilder\UrlBuilder;
 
 /**
  * Main test class for UrlBuilder class.
+ *
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
 class UrlBuilderTest extends TestCase
 {
@@ -64,6 +66,7 @@ class UrlBuilderTest extends TestCase
      * Prepare URLs for testPartialUrls test.
      *
      * @return array
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     public function prepareUrls()
     {
@@ -117,7 +120,7 @@ class UrlBuilderTest extends TestCase
             ),
             array(
                 'input' => '?authenticated=1&token=123&perform',
-                'expected' => 'authenticated=1&token=123&perform',
+                'expected' => '?authenticated=1&token=123&perform',
                 'query'    => 'authenticated=1&token=123&perform',
             ),
             array(
@@ -192,6 +195,8 @@ class UrlBuilderTest extends TestCase
      * @return void
      *
      * @dataProvider prepareUrls
+     *
+     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function testPartialUrls($url, $expected, $user, $pass, $scheme, $host, $port, $path, $fragment, $query)
     {

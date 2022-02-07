@@ -87,6 +87,15 @@ class UrlBuilder
     protected $fragment;
 
     /**
+     * Flag to determine if the query string is to be prefixed with a question mark.
+     *
+     * See issue #3
+     *
+     * @var bool
+     */
+    private $queryWasPrefixed = false;
+
+    /**
      * Create a new instance.
      *
      * @param string $url The url to start with.
@@ -558,6 +567,8 @@ class UrlBuilder
                     $url .= '/';
                 }
                 $url .= '?';
+            } elseif ($this->queryWasPrefixed) {
+                $url .= '?';
             }
 
             $url .= $query;
@@ -593,17 +604,23 @@ class UrlBuilder
             return [];
         }
 
+        if (count($parsed) !== 1) {
+            $this->queryWasPrefixed = false;
+            return $parsed;
+        }
         if (
-            (count($parsed) === 1)
-            && isset($parsed['path'])
-            && (0 === strpos($parsed['path'], '?') || false !== strpos($parsed['path'], '&'))
+            isset($parsed['path'])
+            && (($queryWasPrefixed = (0 === strpos($parsed['path'], '?'))) || false !== strpos($parsed['path'], '&'))
         ) {
             $parsed = array(
                 'query' => $parsed['path']
             );
 
+            $this->queryWasPrefixed = $queryWasPrefixed;
+
             return $parsed;
         }
+        $this->queryWasPrefixed = isset($parsed['query']);
 
         return $parsed;
     }

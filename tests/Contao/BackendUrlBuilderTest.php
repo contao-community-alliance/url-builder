@@ -34,12 +34,14 @@ class BackendUrlBuilderTest extends TestCase
      * @return void
      *
      * @runInSeparateProcess
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Request token not defined
      */
     public function testThrowsExceptionWithoutConstant()
     {
         $test = new BackendUrlBuilder('http://secure.c-c-a.org');
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Request token not defined');
+
         $test->getUrl();
     }
 

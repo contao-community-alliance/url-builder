@@ -120,7 +120,7 @@ class UrlBuilderTest extends TestCase
             ),
             array(
                 'input' => '?authenticated=1&token=123&perform',
-                'expected' => 'authenticated=1&token=123&perform',
+                'expected' => '?authenticated=1&token=123&perform',
                 'query'    => 'authenticated=1&token=123&perform',
             ),
             array(

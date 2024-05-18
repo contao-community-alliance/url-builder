@@ -25,10 +25,10 @@
     "php": "^8.2"
   },
   "require-dev": {
-    "contao/core-bundle": "^5.3.x-dev",
+    "contao/core-bundle": "^5.3",
     "php-http/guzzle7-adapter": "^1.0",
     "phpcq/runner-bootstrap": "^1.0@dev",
-    "symfony/security-csrf": "^6.3"
+    "symfony/security-csrf": "^6.4"
   },
   "autoload": {
     "psr-4": {

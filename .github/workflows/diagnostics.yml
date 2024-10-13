@@ -11,10 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - php: 7.4
-            output: '-o github-action -o default'
-            phpcq_install: 'install'
-          - php: 8.0
+          - php: 8.2
             output: '-o default'
             phpcq_install: 'update'
 
@@ -31,7 +28,7 @@ jobs:
           php-version: ${{ matrix.php }}
 
       - name: PHP ${{ matrix.php }} Cache composer cache directory
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         env:
           cache-name: composer-cache-dir
         with:
@@ -39,7 +36,7 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.php }}-build-${{ env.cache-name }}
 
       - name: PHP ${{ matrix.php }} Cache vendor directory
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         env:
           cache-name: composer-vendor
         with:
@@ -49,7 +46,7 @@ jobs:
             ${{ runner.os }}-${{ matrix.php }}-build-${{ env.cache-name }}-
 
       - name: PHP ${{ matrix.php }} Cache phpcq directory
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         env:
           cache-name: phpcq
         with:
@@ -68,7 +65,7 @@ jobs:
         run: ./vendor/bin/phpcq run -v ${{ matrix.output }}
 
       - name: PHP ${{ matrix.php }} Upload build directory to artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: ${{ success() }} || ${{ failure() }}
         with:
           name: phpcq-builds-php-${{ matrix.php }}

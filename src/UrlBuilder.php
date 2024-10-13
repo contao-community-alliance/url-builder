@@ -542,7 +542,7 @@ class UrlBuilder
         }
 
         if (isset($this->path)) {
-            if ($url != '' && $this->path[0] !== '/') {
+            if ($url !== '' && $this->path[0] !== '/') {
                 $url .= '/';
             }
 
@@ -561,9 +561,9 @@ class UrlBuilder
     {
         $url = $this->getBaseUrl();
 
-        if ($query = $this->getQueryString()) {
+        if (null !== ($query = $this->getQueryString())) {
             if ($url) {
-                if (!$this->path) {
+                if (null === $this->path) {
                     $url .= '/';
                 }
                 $url .= '?';

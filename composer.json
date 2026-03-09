@@ -18,14 +18,13 @@
   "support": {
     "email": "info@contao-community-alliance.de",
     "issues": "https://github.com/contao-community-alliance/url-builder/issues",
-    "irc": "irc://irc.freenode.org/contao.cca",
     "source": "https://github.com/contao-community-alliance/url-builder"
   },
   "require": {
-    "php": "^8.2"
+    "php": "^8.4"
   },
   "require-dev": {
-    "contao/core-bundle": "^5.3",
+    "contao/core-bundle": "^5.7",
     "php-http/guzzle7-adapter": "^1.0",
     "phpcq/runner-bootstrap": "^1.0@dev",
     "symfony/security-csrf": "^6.4"
@@ -49,7 +48,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-feature/2.0.0": "2.0.x-dev"
+      "dev-feature/2.1.0": "2.1.x-dev"
     }
   }
 }

@@ -27,7 +27,7 @@
     "contao/core-bundle": "^5.7",
     "php-http/guzzle7-adapter": "^1.0",
     "phpcq/runner-bootstrap": "^1.0@dev",
-    "symfony/security-csrf": "^6.4"
+    "symfony/security-csrf": "^7.4"
   },
   "autoload": {
     "psr-4": {

@@ -48,7 +48,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-feature/2.1.0": "2.1.x-dev"
+      "dev-release/2.1.0": "2.1.x-dev"
     }
   }
 }

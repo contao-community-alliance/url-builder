@@ -439,6 +439,7 @@ class UrlBuilder
     public function addQueryParameters($queryString)
     {
         $queries = preg_split('/&(amp;)?/i', $queryString);
+        \assert(\is_array($queries));
 
         foreach ($queries as $v) {
             $explode = explode('=', $v);

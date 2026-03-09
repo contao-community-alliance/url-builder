@@ -22,18 +22,18 @@ namespace ContaoCommunityAlliance\UrlBuilder\Test;
 use ContaoCommunityAlliance\UrlBuilder\UrlBuilder;
 use ContaoCommunityAlliance\UrlBuilder\UrlBuilderFactory;
 use ContaoCommunityAlliance\UrlBuilder\Test\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Main test class for UrlBuilderFactory class.
  */
+#[CoversClass(UrlBuilderFactory::class)]
 class UrlBuilderFactoryTest extends TestCase
 {
     /**
      * Test that the request token get's appended.
-     *
-     * @return void
      */
-    public function testCreateBuilder()
+    public function testCreateBuilder(): void
     {
         $url      = 'http://user:secret@secure.c-c-a.org:80/secure/path?auth=1&token=123&perform#top';
         $expected = 'http://user:secret@secure.c-c-a.org:80/secure/path?auth=1&token=123&perform#top';

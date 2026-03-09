@@ -27,6 +27,8 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
  * URL builder with security token.
  *
  * @package ContaoCommunityAlliance\UrlBuilder\Contao
+ *
+ * @api
  */
 class CsrfUrlBuilder extends UrlBuilder
 {
@@ -64,6 +66,7 @@ class CsrfUrlBuilder extends UrlBuilder
      *
      * @return string
      */
+    #[\Override]
     public function getQueryString()
     {
         $query = (string) parent::getQueryString();

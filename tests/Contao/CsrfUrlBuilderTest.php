@@ -22,24 +22,22 @@ namespace ContaoCommunityAlliance\UrlBuilder\Test\Contao;
 
 use ContaoCommunityAlliance\UrlBuilder\Contao\CsrfUrlBuilder;
 use ContaoCommunityAlliance\UrlBuilder\Test\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 /**
  * Main test class for CsrfUrlBuilder class.
  */
+#[CoversClass(CsrfUrlBuilder::class)]
 class CsrfUrlBuilderTest extends TestCase
 {
     /**
-     * Test that the request token get's appended.
-     *
-     * @return void
-     *
-     * @runInSeparateProcess
+     * Test that the request token gets appended.
      */
-    public function testAppendedRequestToken()
+    public function testAppendedRequestToken(): void
     {
-        $tokenManager = $this->getMockBuilder(CsrfTokenManagerInterface::class)->getMockForAbstractClass();
+        $tokenManager = $this->getMockBuilder(CsrfTokenManagerInterface::class)->getMock();
         $tokenManager
             ->expects($this->once())
             ->method('getToken')
@@ -55,14 +53,10 @@ class CsrfUrlBuilderTest extends TestCase
 
     /**
      * Test that the request token get's appended.
-     *
-     * @return void
-     *
-     * @runInSeparateProcess
      */
-    public function testAppendedRequestTokenAsOnlyParameter()
+    public function testAppendedRequestTokenAsOnlyParameter(): void
     {
-        $tokenManager = $this->getMockBuilder(CsrfTokenManagerInterface::class)->getMockForAbstractClass();
+        $tokenManager = $this->getMockBuilder(CsrfTokenManagerInterface::class)->getMock();
         $tokenManager
             ->expects($this->once())
             ->method('getToken')

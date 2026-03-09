@@ -24,6 +24,8 @@ namespace ContaoCommunityAlliance\UrlBuilder;
  * General purpose URL builder factory.
  *
  * @package ContaoCommunityAlliance\UrlBuilder
+ *
+ * @api
  */
 interface UrlBuilderFactoryInterface
 {

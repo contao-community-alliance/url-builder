@@ -23,6 +23,8 @@ namespace ContaoCommunityAlliance\UrlBuilder;
  * General purpose URL builder factory.
  *
  * @package ContaoCommunityAlliance\UrlBuilder
+ *
+ * @api
  */
 class UrlBuilderFactory implements UrlBuilderFactoryInterface
 {
@@ -33,6 +35,7 @@ class UrlBuilderFactory implements UrlBuilderFactoryInterface
      *
      * @return UrlBuilder
      */
+    #[\Override]
     public function create($url = '')
     {
         return new UrlBuilder($url);

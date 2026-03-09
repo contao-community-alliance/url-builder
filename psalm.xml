@@ -1,14 +1,34 @@
 <?xml version="1.0"?>
 <psalm
-    totallyTyped="true"
-    hideExternalErrors="true"
-    errorLevel="1"
-    resolveFromConfigFile="true"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="https://getpsalm.org/schema/config"
-    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+  totallyTyped="true"
+  hideExternalErrors="true"
+  errorLevel="1"
+  resolveFromConfigFile="true"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="https://getpsalm.org/schema/config"
+  xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
 >
-    <projectFiles>
-        <directory name="src" />
-    </projectFiles>
+  <projectFiles>
+    <directory name="src"/>
+  </projectFiles>
+  <issueHandlers>
+    <PossiblyUnusedMethod>
+      <errorLevel type="suppress">
+        <referencedMethod name="ContaoCommunityAlliance\UrlBuilder\UrlBuilder::getUser"/>
+        <referencedMethod name="ContaoCommunityAlliance\UrlBuilder\UrlBuilder::getPass"/>
+        <referencedMethod name="ContaoCommunityAlliance\UrlBuilder\UrlBuilder::getScheme"/>
+        <referencedMethod name="ContaoCommunityAlliance\UrlBuilder\UrlBuilder::getHost"/>
+        <referencedMethod name="ContaoCommunityAlliance\UrlBuilder\UrlBuilder::getPort"/>
+        <referencedMethod name="ContaoCommunityAlliance\UrlBuilder\UrlBuilder::getPath"/>
+        <referencedMethod name="ContaoCommunityAlliance\UrlBuilder\UrlBuilder::getFragment"/>
+        <referencedMethod name="ContaoCommunityAlliance\UrlBuilder\UrlBuilder::insertQueryParameterBefore"/>
+        <referencedMethod name="ContaoCommunityAlliance\UrlBuilder\UrlBuilder::insertQueryParameterBefore"/>
+        <referencedMethod name="ContaoCommunityAlliance\UrlBuilder\UrlBuilder::hasQueryParameter"/>
+        <referencedMethod name="ContaoCommunityAlliance\UrlBuilder\UrlBuilder::getQueryParameter"/>
+        <referencedMethod name="ContaoCommunityAlliance\UrlBuilder\UrlBuilder::addQueryParametersFromUrl"/>
+        <referencedMethod name="ContaoCommunityAlliance\UrlBuilder\UrlBuilder::unsetQueryParameter"/>
+        <referencedMethod name="ContaoCommunityAlliance\UrlBuilder\UrlBuilder::getUrl"/>
+      </errorLevel>
+    </PossiblyUnusedMethod>
+  </issueHandlers>
 </psalm>

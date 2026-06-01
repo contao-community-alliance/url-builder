@@ -27,6 +27,8 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
  * URL builder factory for URLs with security token.
  *
  * @package ContaoCommunityAlliance\UrlBuilder\Contao
+ *
+ * @api
  */
 class CsrfUrlBuilderFactory implements UrlBuilderFactoryInterface
 {
@@ -63,6 +65,7 @@ class CsrfUrlBuilderFactory implements UrlBuilderFactoryInterface
      *
      * @return CsrfUrlBuilder
      */
+    #[\Override]
     public function create($url = '')
     {
         return new CsrfUrlBuilder($this->tokenManager, $this->tokenName, $url);
